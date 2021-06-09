@@ -1,5 +1,6 @@
 import obswebsocket
-from obswebsocket import obsws, requests, events
+from obswebsocket import obsws, requests, events, exceptions
+from time import sleep
 
 try:
     from settings import OBS_IP, OBS_PORT, OBS_PASSWORD, DEFAULT_SCENE, SCENE_NAME
@@ -10,7 +11,7 @@ except ImportError:
 
 
 class OBS:
-    debug_mode = True
+    debug_mode = False
 
     def __init__(self):
         self.ws = obsws(host=OBS_IP, port=OBS_PORT, password=OBS_PASSWORD)
@@ -19,7 +20,15 @@ class OBS:
         self.ws.register(self.on_switch_scene, events.SwitchScenes)
 
     def connect(self):
-        self.ws.connect(host="localhost" if OBS_IP is None else OBS_IP, port=OBS_PORT)
+        while True:
+            try:
+                self.ws.connect(host="localhost" if OBS_IP is None else OBS_IP, port=OBS_PORT)
+                break
+            except exceptions.ConnectionFailure:
+                print("Erro ao tentar conectar com o OBS.")
+                print("Verifique se o OBS está aberto, e tente novamente.")
+            finally:
+                sleep(1.0)
 
     def disconnect(self):
         self.ws.disconnect()
@@ -43,7 +52,7 @@ class OBS:
 
     # EVENTS
     def on_event(self, event=None):
-        if OBS.debug_mode:
+        if self.debug_mode:
             print(f"{event}\n")
 
     def on_switch_scene(self, msg):
