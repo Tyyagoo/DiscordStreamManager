@@ -1,9 +1,10 @@
 import discord
 from discord.ext import commands
+from obs import OBS
 
 try:
     from settings import TOKEN, STREAMER_ID
-except ImportError or ImportWarning:
+except ImportError:
     print("Error on getting bot settings.\n"
           "Please verify settings.py file.")
     exit(0)
@@ -12,11 +13,14 @@ except ImportError or ImportWarning:
 class DiscordBot(commands.Bot):
 
     def __init__(self, *args, **kwargs):
-        super().__init__(command_prefix=".", help_command=None, case_insensitive=True, *args, **kwargs)
+        super().__init__(command_prefix=['!', '.'], help_command=None, case_insensitive=True, *args, **kwargs)
         self.__TOKEN = TOKEN
         self.__STREAMER_ID = STREAMER_ID
+        self.obs_ws = OBS()
+        self.obs_ws.connect()
         self.target_voice_channel = None
         self.users_in_current_voice = 0
+        self.block_changes = False
 
     @property
     def TOKEN(self) -> str:
@@ -30,7 +34,10 @@ class DiscordBot(commands.Bot):
         super().run(self.TOKEN)
 
     def update_stream_hud_state(self):
+        if self.block_changes:
+            return
         print(f"UPDATING STREAM HUD TO {self.users_in_current_voice}")
+        self.obs_ws.change_scene_by_number(self.users_in_current_voice)
 
     async def on_voice_state_update(self, member: discord.Member, before: discord.VoiceState,
                                     after: discord.VoiceState):
