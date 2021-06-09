@@ -106,6 +106,37 @@ As informações mais relevantes **DEVEM** ser substituídas.
 **Observação:** Sempre que for utilizar o programa, você deve refazer esses 3 passos, na ordem correta.
 
 
+<!-- HOW EXAMPLES -->
+## Como Funciona
+   O BOT deve ser um membro do servidor em que o streamer se conectará a algum canal de voz.
+   Ele automaticamente irá observar o membro dono do `STREAMER_ID`, e atualizar o HUD da live de acordo.
+   
+   **Comandos:**
+   * !ad <param=None>
+     ```
+     Esse comando fará com que o bot pare de atualizar o HUD automaticamente, evitando assim mudanças indesejadas.
+     Você pode passar um parâmetro informando se deseja passar um "anúncio personalizado", caso tenha patrocinadores.
+          
+     Exemplos:
+     !ad bang_energy
+     !ad nike
+     !ad
+     
+     ATENÇÃO:
+     Quando você passa um parâmetro para o bot, ele ira travar as atualizações automáticas até que você digite !ad novamente.
+     Se não passar nenhum parâmetro, o bot vai sempre alternar entre o gerenciamento automático e o não gerenciamento.
+     ```
+
+   * !forceupdate <alias=['forceupdate', 'update', 'fu']>
+   ```
+      Força a atualização do HUD. Use caso o HUD por algum motivo não esteja mostrando o número correto de usuários.
+      
+      Exemplos:
+      !fu
+      !update
+      !forceupdate
+   ```
+
 <!-- CONTRIBUTING -->
 ## Contributing
 
