@@ -35,19 +35,23 @@
    ```sh
    git clone https://github.com/Tyyagoo/DiscordStreamManager.git
    ```
-2. Crie um novo ambiente virtual
+2. Vá para a pasta do projeto
+   ```sh
+   cd DiscordStreamManager
+   ```
+3. Crie um novo ambiente virtual
    ```sh
    python -m venv venv
    ```
-3. Ative o ambiente virtual
+4. Ative o ambiente virtual
    ```sh
    .\venv\Scripts\activate
    ```
-4. Instale as dependências do projeto
+5. Instale as dependências do projeto
    ```sh
    pip install -r requirements.txt
    ```
-5. Abra a pasta do projeto
+6. Abra a pasta do projeto
    ```sh
    start .
    ```
@@ -86,7 +90,7 @@ As informações mais relevantes **DEVEM** ser substituídas.
 
 **Observação:** Caso você ainda não tenha fechado o terminal, vá direto ao passo 3.
 
-1. Abra o terminal na pasta do bot
+1. Vá para a pasta do projeto
     ```sh
     cd C:\path\DiscordStreamManager
     ```
