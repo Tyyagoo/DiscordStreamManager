@@ -33,8 +33,10 @@ class DiscordBot(commands.Bot):
     def run(self) -> None:
         super().run(self.TOKEN)
 
+    """
     def on_ready(self) -> None:
-        print(f"{self.user.name}#{self.user.discriminator} está online!")
+        print(f"{self.user.display_name}#{self.user.discriminator} está online!")
+    """
 
     def update_stream_hud_state(self):
         if self.block_changes:
